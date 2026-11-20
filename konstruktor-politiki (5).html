@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Конструктор политики конфиденциальности</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, Arial, sans-serif; background: #f2f6f0; color: #222; margin: 0; }
+  header { background: linear-gradient(135deg, #1e6b2e, #7ab648); color: #fff; padding: 24px 16px; text-align: center; }
+  header h1 { margin: 0 0 6px 0; font-size: 22px; }
+  header p { margin: 0; opacity: 0.9; font-size: 14px; }
+  main { max-width: 760px; margin: 0 auto; padding: 12px; }
+  .card { background: #fff; border-radius: 14px; padding: 16px; margin: 14px 0; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  h2 { color: #1e6b2e; font-size: 19px; margin: 0 0 12px 0; }
+  input[type=text], select { width: 100%; padding: 10px; font-size: 16px; border: 1px solid #b9c9b0; border-radius: 8px; margin: 6px 0 12px 0; background: #fff; }
+  label { display: block; font-weight: 600; font-size: 15px; margin-top: 10px; }
+  .hint { color: #7a8577; font-size: 13px; margin: 2px 0 8px 0; }
+  .q { border: 1px solid #e2ead9; border-radius: 10px; padding: 10px 12px; margin: 10px 0; background: #fbfdf9; }
+  .qtitle { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+  .ans { margin-top: 6px; font-size: 15px; }
+  .ans input { margin-right: 5px; }
+  .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 10px; margin: 6px 4px 0 0; font-weight: 600; }
+  .tag-law { background: #e3efff; color: #1c4fa0; }
+  .tag-ux { background: #ffe9e0; color: #b03a1a; }
+  .tag-store { background: #eee9fb; color: #5a3ea6; }
+  .btn { display: block; width: 100%; background: #1e6b2e; color: #fff; border: none; border-radius: 10px; padding: 14px; font-size: 17px; font-weight: 600; margin-top: 6px; }
+  .btn2 { display: block; width: 100%; background: #e8ede4; color: #333; border: none; border-radius: 10px; padding: 12px; font-size: 15px; margin-top: 8px; }
+  #result { display: none; }
+  #policyText { background: #f7faf4; border: 1px solid #d8e4cf; border-radius: 10px; padding: 14px; font-size: 14px; line-height: 1.55; white-space: pre-wrap; max-height: 420px; overflow: auto; }
+  .tip { border-radius: 10px; padding: 10px 12px; margin: 8px 0; font-size: 14px; }
+  .tip-red { background: #fdeaea; border: 1px solid #e8a1a1; }
+  .tip-yel { background: #fdf6e3; border: 1px solid #e2cf8f; }
+  .tip-ok { background: #e8f5e9; border: 1px solid #a5d0a8; }
+  details { margin: 10px 0; }
+  summary { font-weight: 700; color: #1e6b2e; cursor: pointer; padding: 10px; background: #eef5ea; border-radius: 10px; font-size: 16px; }
+  .term { border-left: 4px solid #7ab648; background: #f6faf2; border-radius: 0 10px 10px 0; padding: 8px 12px; margin: 10px 0; }
+  .term b { color: #1e6b2e; }
+  .term p { margin: 4px 0 0 0; font-size: 14px; }
+  .src { margin: 10px 0; font-size: 14px; line-height: 1.5; }
+  .src a { color: #1c4fa0; word-break: break-all; }
+  .srcnote { color: #7a8577; font-size: 12px; }
+  h3 { color: #1e6b2e; margin: 16px 0 6px 0; font-size: 16px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Конструктор политики конфиденциальности</h1>
+  <p>Ответь на 19 вопросов — получи готовый текст политики</p>
+</header>
+<main>
+
+<div class="card">
+  <h2>Шаг 1. Ваше приложение</h2>
+  <label>1. Как называется ваше приложение?</label>
+  <input type="text" id="appName" placeholder="Например: Математический тренажёр">
+  <label>1а. Кто ваши пользователи?</label>
+  <select id="userType">
+    <option value="all">все пользователи (взрослые и дети)</option>
+    <option value="teen">подростки (13–17 лет)</option>
+    <option value="kids">только дети до 14 лет</option>
+  </select>
+</div>
+
+<div class="card">
+  <h2>Шаг 2. Вопросы (отвечайте честно 🙂)</h2>
+
+  <div class="q"><div class="qtitle">2. Собираете ли вы e-mail?</div><div class="hint">для регистрации, рассылок, восстановления доступа</div>
+    <div class="ans"><label><input type="radio" name="q2" value="yes"> да</label><label><input type="radio" name="q2" value="no"> нет</label></div>
+    <span class="tag tag-law">152-ФЗ</span></div>
+
+  <div class="q"><div class="qtitle">3. Собираете ли вы имя, никнейм или дату рождения?</div><div class="hint">любые данные, по которым вас можно узнать</div>
+    <div class="ans"><label><input type="radio" name="q3" value="yes"> да</label><label><input type="radio" name="q3" value="no"> нет</label></div>
+    <span class="tag tag-law">152-ФЗ</span></div>
+
+  <div class="q"><div class="qtitle">4. Собираете ли вы номер телефона?</div><div class="hint">даже для подтверждения по SMS</div>
+    <div class="ans"><label><input type="radio" name="q4" value="yes"> да</label><label><input type="radio" name="q4" value="no"> нет</label></div>
+    <span class="tag tag-law">152-ФЗ</span></div>
+
+  <div class="q"><div class="qtitle">5. Запрашиваете ли камеру, микрофон или фото?</div><div class="hint">например, для аватара или голосового чата</div>
+    <div class="ans"><label><input type="radio" name="q5" value="yes"> да</label><label><input type="radio" name="q5" value="no"> нет</label></div>
+    <span class="tag tag-ux">UX-этика</span></div>
+
+  <div class="q"><div class="qtitle">6. Собираете ли вы геолокацию?</div><div class="hint">даже «приблизительную»</div>
+    <div class="ans"><label><input type="radio" name="q6" value="yes"> да</label><label><input type="radio" name="q6" value="no"> нет</label></div>
+    <span class="tag tag-law">152-ФЗ</span></div>
+
+  <div class="q"><div class="qtitle">7. Собираете ли вы идентификаторы устройства?</div><div class="hint">IDFA, AAID, Android ID — обычно приходят от рекламных и аналитических SDK</div>
+    <div class="ans"><label><input type="radio" name="q7" value="yes"> да</label><label><input type="radio" name="q7" value="no"> нет</label></div>
+    <span class="tag tag-law">152-ФЗ</span></div>
+
+  <div class="q"><div class="qtitle">8. Сохраняете ли вы прогресс и результаты пользователя?</div><div class="hint">очки, уровни, оценки, историю занятий</div>
+    <div class="ans"><label><input type="radio" name="q8" value="yes"> да</label><label><input type="radio" name="q8" value="no"> нет</label></div>
+    <span class="tag tag-law">152-ФЗ</span></div>
+
+  <div class="q"><div class="qtitle">9. Подключены ли сторонние SDK?</div><div class="hint">аналитика, реклама, соцсети: каждый SDK — передача данных третьему лицу</div>
+    <div class="ans"><label><input type="radio" name="q9" value="yes"> да</label><label><input type="radio" name="q9" value="no"> нет</label></div>
+    <span class="tag tag-store">Магазины</span></div>
+
+  <div class="q"><div class="qtitle">10. Передаёте ли данные третьим лицам?</div><div class="hint">рекламодателям, партнёрам, «системам мониторинга»</div>
+    <div class="ans"><label><input type="radio" name="q10" value="yes"> да</label><label><input type="radio" name="q10" value="no"> нет</label></div>
+    <span class="tag tag-law">152-ФЗ</span></div>
+
+  <div class="q"><div class="qtitle">11. Показываете ли вы рекламу?</div><div class="hint">баннеры, видео, нативную</div>
+    <div class="ans"><label><input type="radio" name="q11" value="yes"> да</label><label><input type="radio" name="q11" value="no"> нет</label></div>
+    <span class="tag tag-store">Магазины</span></div>
+
+  <div class="q"><div class="qtitle">12. Показываете ли вы персонализированную рекламу?</div><div class="hint">по интересам, собранным из данных пользователя</div>
+    <div class="ans"><label><input type="radio" name="q12" value="yes"> да</label><label><input type="radio" name="q12" value="no"> нет</label></div>
+    <span class="tag tag-store">Магазины</span></div>
+
+  <div class="q"><div class="qtitle">13. Есть ли экран согласия до сбора данных?</div><div class="hint">пользователь видит и принимает политику ДО начала сбора</div>
+    <div class="ans"><label><input type="radio" name="q13" value="yes"> да</label><label><input type="radio" name="q13" value="no"> нет</label></div>
+    <span class="tag tag-law">152-ФЗ</span></div>
+
+  <div class="q"><div class="qtitle">14. Кнопка «Отказаться» такая же заметная, как «Принять»?</div><div class="hint">одинаковый размер и цвет, без «серых» надписей</div>
+    <div class="ans"><label><input type="radio" name="q14" value="yes"> да</label><label><input type="radio" name="q14" value="no"> нет</label></div>
+    <span class="tag tag-ux">UX-этика</span></div>
+
+  <div class="q"><div class="qtitle">15. Согласие стоит заранее (галочки предзаполнены)?</div><div class="hint">если да — это нарушение свободного согласия</div>
+    <div class="ans"><label><input type="radio" name="q15" value="yes"> да</label><label><input type="radio" name="q15" value="no"> нет</label></div>
+    <span class="tag tag-law">152-ФЗ</span></div>
+
+  <div class="q"><div class="qtitle">16. Используете ли давление срочностью или страхом?</div><div class="hint">«только сегодня», «иначе потеряете прогресс» — тёмные паттерны</div>
+    <div class="ans"><label><input type="radio" name="q16" value="yes"> да</label><label><input type="radio" name="q16" value="no"> нет</label></div>
+    <span class="tag tag-ux">UX-этика</span></div>
+
+  <div class="q"><div class="qtitle">17. Объясняете ли простым языком, зачем нужны данные?</div><div class="hint">«камера нужна для QR-кодов», а не «согласно политике»</div>
+    <div class="ans"><label><input type="radio" name="q17" value="yes"> да</label><label><input type="radio" name="q17" value="no"> нет</label></div>
+    <span class="tag tag-ux">UX-этика</span></div>
+
+  <div class="q"><div class="qtitle">18. Есть ли кнопка удаления аккаунта и данных?</div><div class="hint">право на удаление — требование 152-ФЗ и магазинов</div>
+    <div class="ans"><label><input type="radio" name="q18" value="yes"> да</label><label><input type="radio" name="q18" value="no"> нет</label></div>
+    <span class="tag tag-law">152-ФЗ</span></div>
+
+  <div class="q"><div class="qtitle">19. Если пользователям меньше 14 лет — есть ли согласие родителей?</div><div class="hint">письменное или электронное согласие законного представителя</div>
+    <div class="ans"><label><input type="radio" name="q19" value="yes"> да</label><label><input type="radio" name="q19" value="no"> нет</label></div>
+    <span class="tag tag-law">152-ФЗ</span></div>
+
+  <div class="q"><div class="qtitle">20. Есть ли контакт для вопросов о данных?</div><div class="hint">e-mail или форма связи в политике</div>
+    <div class="ans"><label><input type="radio" name="q20" value="yes"> да</label><label><input type="radio" name="q20" value="no"> нет</label></div>
+    <span class="tag tag-law">152-ФЗ</span></div>
+
+  <button class="btn" onclick="buildPolicy()">⚙ Собрать политику</button>
+  <button class="btn2" onclick="resetAll()">Сбросить</button>
+</div>
+
+<div class="card" id="result">
+  <h2>Шаг 3. Ваша политика конфиденциальности</h2>
+  <div id="policyText"></div>
+  <button class="btn" onclick="copyPolicy()">📋 Скопировать текст</button>
+  <div id="tips"></div>
+</div>
+
+<div class="card">
+  <details>
+    <summary>📚 Шпаргалка: что всё это значит</summary>
+    <div class="term"><b>Персональные данные</b><p>Любая информация, по которой можно узнать конкретного человека: имя, e-mail, телефон, фото, геолокация.</p></div>
+    <div class="term"><b>152-ФЗ</b><p>Федеральный закон «О персональных данных». Главные правила: собирай только нужное (минимизация), объясни зачем, получи свободное согласие и разреши удалить данные.</p></div>
+    <div class="term"><b>Минимизация</b><p>Собирай только те данные, без которых приложение не работает. Нужно для шахмат — значит, геолокация не нужна.</p></div>
+    <div class="term"><b>Свободное согласие</b><p>Пользователь соглашается сам и осознанно: без заранее поставленных галочек и без давления.</p></div>
+    <div class="term"><b>Политика конфиденциальности</b><p>Документ, где написано: какие данные собираешь, зачем, кому передаёшь, как долго хранишь и как удалить. Без неё приложение не пройдёт модерацию.</p></div>
+    <div class="term"><b>SDK</b><p>Готовый чужой код, который ты встраиваешь в приложение (аналитика, реклама, вход через соцсеть). SDK часто собирает данные сам — и это надо указывать в политике.</p></div>
+    <div class="term"><b>Идентификаторы устройства</b><p>Номера вроде IDFA (iPhone) и Android ID. Не имя, но по ним следят за пользователем между приложениями.</p></div>
+    <div class="term"><b>Третьи лица</b><p>Все, кроме тебя и пользователя: рекламные сети, аналитика, партнёры. Им можно передавать данные только если пользователь согласился и это написано в политике.</p></div>
+    <div class="term"><b>Персонализированная реклама</b><p>Реклама «по интересам», которую подбирают по данным пользователя. Детям она запрещена правилами площадок.</p></div>
+    <div class="term"><b>Тёмные паттерны</b><p>Дизайн-уловки: спрятанная кнопка «отказаться», предзаполненные галочки, пугающие надписи, ложная срочность. Законно сомнительно, этично — нет.</p></div>
+    <div class="term"><b>Право на удаление</b><p>Пользователь может попросить удалить свои данные, и ты обязан это сделать (ст. 21 152-ФЗ). Нужна кнопка или контакт для запроса.</p></div>
+    <div class="term"><b>Согласие родителей</b><p>Для детей до 14 лет решения о данных принимают родители — согласие должен давать законный представитель.</p></div>
+    <div class="term"><b>Data Safety</b><p>Раздел в Google Play, где разработчик в анкете заявляет, какие данные собирает. Должно совпадать с реальностью, иначе приложение удаляют.</p></div>
+    <div class="term"><b>App Review Guidelines</b><p>Правила App Store от Apple: требуют понятного согласия, запрета на лишние данные и честного дизайна.</p></div>
+    <div class="term"><b>UX-этика</b><p>Профессиональное правило: интерфейс уважает пользователя и не манипулирует им ради метрик.</p></div>
+  </details>
+</div>
+
+<div class="card">
+  <details>
+    <summary>🔗 Источники исследования</summary>
+
+    <h3>Законы и правила площадок</h3>
+    <div class="src">• <a href="https://www.consultant.ru/document/cons_doc_LAW_61801/">Федеральный закон № 152-ФЗ «О персональных данных»</a> — КонсультантПлюс<br><span class="srcnote">первоисточник требований: минимизация, согласие, право на удаление</span></div>
+    <div class="src">• <a href="https://www.garant.ru/products/ipo/prime/doc/71634598/">Рекомендации Роскомнадзора по составлению политики (31.07.2017)</a><br><span class="srcnote">основа структуры текста политики, который генерирует конструктор</span></div>
+    <div class="src">• <a href="https://play.google/developer-content-policy/">Google Play Developer Policy Center</a><br><span class="srcnote">правила публикации: данные, SDK, реклама</span></div>
+    <div class="src">• <a href="https://support.google.com/googleplay/android-developer/answer/10787469?hl=en">Google Play: правила раздела Data safety</a><br><span class="srcnote">как заявлять сбор данных в анкете консоли</span></div>
+    <div class="src">• <a href="https://developer.apple.com/app-store/review/guidelines/">Apple: App Review Guidelines</a><br><span class="srcnote">официальные правила App Store</span></div>
+
+    <h3>Тёмные паттерны и этика интерфейсов</h3>
+    <div class="src">• <a href="https://www.nngroup.com/articles/deceptive-patterns/">NN Group: Deceptive Patterns in UX</a><br><span class="srcnote">определение тёмных паттернов и как их избегать</span></div>
+    <div class="src">• <a href="https://deceptive.design/about-us/">Deceptive Design (Гарри Бриньолф, автор термина)</a><br><span class="srcnote">каталог манипулятивных приёмов</span></div>
+    <div class="src">• <a href="https://habr.com/ru/companies/selectel/articles/920364/">Хабр: «10 тёмных паттернов в UX-дизайне»</a><br><span class="srcnote">примеры на русском</span></div>
+    <div class="src">• <a href="https://skillbox.ru/media/design/dark-patterns-in-products/">Skillbox Media: «Тёмные паттерны: классификация и примеры»</a></div>
+    <div class="src">• <a href="https://trends.rbc.ru/trends/industry/60feaaeb9a79473e32ca7b12">РБК Тренды: «Как уловки в дизайне обманывают пользователей»</a><br><span class="srcnote">примеры РЖД, лоукостеров, стримингов</span></div>
+
+    <h3>Проанализированные приложения (эмпирическая база)</h3>
+    <div class="src">• <a href="https://en.help.roblox.com/hc/en-us/articles/115004630823">Roblox — Privacy and Cookie Policy</a><br><span class="srcnote">отдельный блок про детей до 13 лет и согласие родителей</span></div>
+    <div class="src">• <a href="https://uchi.ru/legal-content/privacy">Учи.ру — Политика конфиденциальности</a><br><span class="srcnote">написана по 152-ФЗ, понятный пример российской политики</span></div>
+    <div class="src">• <a href="https://www.duolingo.com/privacy">Duolingo — Privacy Policy</a><br><span class="srcnote">прямо перечислены рекламные партнёры (Google, Meta)</span></div>
+    <div class="src">• <a href="https://vk.com/privacy">ВКонтакте — Правила защиты информации о пользователях</a><br><span class="srcnote">что передаётся рекламодателям и как отказаться</span></div>
+    <div class="src">• <a href="https://telegram.org/privacy-policy">Telegram — Privacy Policy</a><br><span class="srcnote">принцип «храним только то, что нужно для работы»</span></div>
+    <div class="src">• <a href="https://www.tiktok.com/legal/page/row/privacy-policy/ru">TikTok — Политика конфиденциальности</a><br><span class="srcnote">возрастные ограничения и передача данных рекламным сетям</span></div>
+  </details>
+</div>
+
+</main>
+
+<script>
+function getVal(n) {
+  var r = document.getElementsByName(n);
+  for (var i = 0; i < r.length; i++) { if (r[i].checked) { return r[i].value; } }
+  return "";
+}
+function getNum(n) {
+  var v = getVal(n);
+  if (v === "yes") { return 1; }
+  if (v === "no") { return 0; }
+  return -1;
+}
+function buildPolicy() {
+  var name = document.getElementById("appName").value;
+  var ut = document.getElementById("userType");
+  var users = ut.options[ut.selectedIndex].text;
+  if (!name) { name = "Моё приложение"; }
+
+  var q = {};
+  var ids = ["q2","q3","q4","q5","q6","q7","q8","q9","q10","q11","q12","q13","q14","q15","q16","q17","q18","q19","q20"];
+  for (var i = 0; i < ids.length; i++) { q[ids[i]] = getNum(ids[i]); }
+
+  var t = "";
+  t += "ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ ПРИЛОЖЕНИЯ «" + name + "»\n\n";
+  t += "Настоящая политика составлена в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных».\n\n";
+
+  t += "1. ПОЛЬЗОВАТЕЛИ\n";
+  t += "Приложение предназначено для следующих пользователей: " + users + ".\n\n";
+
+  t += "2. КАКИЕ ДАННЫЕ МЫ СОБИРАЕМ\n";
+  var list = [];
+  if (q.q2 === 1) { list.push("— адрес электронной почты (для регистрации, рассылок и восстановления доступа);"); }
+  if (q.q3 === 1) { list.push("— имя, никнейм, дата рождения (для идентификации профиля);"); }
+  if (q.q4 === 1) { list.push("— номер телефона (для подтверждения по SMS);"); }
+  if (q.q5 === 1) { list.push("— изображения и аудио с камеры и микрофона (только по прямому запросу пользователя);"); }
+  if (q.q6 === 1) { list.push("— геолокация (приблизительная);"); }
+  if (q.q7 === 1) { list.push("— идентификаторы устройства (IDFA, AAID, Android ID);"); }
+  if (q.q8 === 1) { list.push("— прогресс и результаты (очки, уровни, история занятий);"); }
+  if (list.length === 0) {
+    t += "Приложение не собирает персональные данные пользователя. Оно работает полностью локально на устройстве.\n\n";
+  } else {
+    for (var j = 0; j < list.length; j++) { t += list[j] + "\n"; }
+    t += "\n";
+  }
+
+  t += "3. ЗАЧЕМ МЫ ЭТО ДЕЛАЕМ\n";
+  if (list.length === 0) {
+    t += "Сбор данных не осуществляется, поэтому цели обработки отсутствуют.\n\n";
+  } else {
+    t += "Данные используются только для работы приложения: создания профиля, сохранения прогресса и улучшения качества сервиса. Мы не используем данные для целей, о которых не предупредили в этой политике.\n\n";
+  }
+
+  t += "4. СОГЛАСИЕ\n";
+  if (q.q13 === 1) {
+    t += "Мы запрашиваем согласие до начала сбора данных. Согласие свободное и осознанное";
+  } else {
+    t += "Мы обязуемся добавить экран согласия до начала сбора данных";
+  }
+  if (q.q15 === 0) { t += ": галочки согласия не заполнены заранее, пользователь ставит их сам"; }
+  if (q.q14 === 1) { t += ", кнопка «Отказаться» оформлена так же заметно, как «Принять»"; }
+  t += ".\n\n";
+
+  t += "5. ТРЕТЬИ ЛИЦА И РЕКЛАМА\n";
+  if (q.q9 === 1 || q.q10 === 1 || q.q11 === 1) {
+    t += "В приложении используются сторонние модули (SDK) ";
+    if (q.q11 === 1) { t += "и показывается реклама"; }
+    t += ". Перечень сторонних сервисов и передаваемые им данные указаны в приложении к этой политике. Мы передаём данные третьим лицам только с согласия пользователя и в объёме, необходимом для их работы.\n";
+    if (q.q12 === 1) {
+      t += "Показывается персонализированная реклама, подобранная по интересам пользователя. Пользователь может отказаться от неё в настройках.\n";
+    } else {
+      t += "Реклама не персонализирована: подбор объявлений не использует данные пользователя.\n";
+    }
+  } else {
+    t += "Приложение не содержит сторонних SDK и не показывает рекламу. Данные третьим лицам не передаются.\n";
+  }
+  t += "\n";
+
+  t += "6. ДЕТИ\n";
+  if (q.q19 === 1) {
+    t += "Для пользователей младше 14 лет обработка данных начинается только после согласия родителя или законного представителя.\n";
+  } else {
+    t += "Если приложение используется детьми, мы обязуемся запросить согласие родителей до начала обработки данных.\n";
+  }
+  if (q.q12 === 1 && ut.value === "kids") {
+    t += "ВНИМАНИЕ: персонализированная реклама запрещена в приложениях для детей — её необходимо отключить.\n";
+  }
+  t += "\n";
+
+  t += "7. ХРАНЕНИЕ И УДАЛЕНИЕ\n";
+  if (q.q18 === 1) {
+    t += "Пользователь может удалить аккаунт и свои данные прямо в приложении. После удаления данные стираются или анонимизируются.\n\n";
+  } else {
+    t += "Для удаления аккаунта и данных пользователь может направить запрос на контакт, указанный ниже. Мы исполняем запрос в срок не более 30 дней (ст. 21 152-ФЗ).\n\n";
+  }
+
+  t += "8. КОНТАКТЫ\n";
+  if (q.q20 === 1) {
+    t += "По любым вопросам о данных пишите нам: [укажите e-mail].\n";
+  } else {
+    t += "По любым вопросам о данных пишите нам: [укажите e-mail]. Рекомендуем завести отдельный почтовый ящик для запросов пользователей.\n";
+  }
+  t += "\nДата последнего обновления: [дата].";
+
+  document.getElementById("policyText").textContent = t;
+  document.getElementById("result").style.display = "block";
+  buildTips(q, ut.value);
+
+  try {
+    if (typeof(Storage) !== "undefined") {
+      localStorage.setItem("polName", name);
+      localStorage.setItem("polUsers", ut.value);
+      for (var k = 0; k < ids.length; k++) { localStorage.setItem("pol_" + ids[k], q[ids[k]]); }
+    }
+  } catch (e) {}
+
+  document.getElementById("result").scrollIntoView();
+}
+function buildTips(q, utv) {
+  var tips = [];
+  if (q.q12 === 1 && utv === "kids") {
+    tips.push(["red", "Критично: персонализированная реклама в приложении для детей до 14 лет. Её необходимо отключить — это требование магазинов приложений."]);
+  }
+  if (q.q13 === 0) {
+    tips.push(["red", "Критично: сбор данных без экрана согласия. По 152-ФЗ согласие должно быть получено до начала обработки."]);
+  }
+  if (q.q15 === 1) {
+    tips.push(["red", "Критично: предзаполненные галочки делают согласие несвободным. По 152-ФЗ это недопустимо."]);
+  }
+  if (q.q16 === 1) {
+    tips.push(["red", "Критично: давление срочностью или страхом — тёмный паттерн. Уберите формулировки вроде «только сегодня»."]);
+  }
+  if (q.q6 === 1) {
+    tips.push(["yel", "Проверьте: нужна ли геолокация? Если приложение работает без неё — уберите (принцип минимизации)."]);
+  }
+  if (q.q7 === 1) {
+    tips.push(["yel", "Проверьте: идентификаторы устройства обычно приходят от SDK. Если вы не подключали аналитику и рекламу — проверьте, откуда они берутся."]);
+  }
+  if (q.q14 === 0) {
+    tips.push(["yel", "Риск: кнопка «Отказаться» менее заметна, чем «Принять». Сделайте их равнозначными — это требование этики и магазинов."]);
+  }
+  if (q.q18 === 0) {
+    tips.push(["yel", "Риск: нет кнопки удаления аккаунта. Добавьте её или контакт для запросов на удаление."]);
+  }
+  if (q.q20 === 0) {
+    tips.push(["yel", "Риск: нет контакта для вопросов о данных. Добавьте e-mail в политику."]);
+  }
+  if (q.q17 === 0) {
+    tips.push(["yel", "Риск: объяснения данных слишком формальные. Опишите простыми словами, зачем нужен каждый тип данных."]);
+  }
+  if (q.q19 === 0 && utv === "kids") {
+    tips.push(["red", "Критично: приложение для детей без механизма согласия родителей. Это требование 152-ФЗ."]);
+  }
+  var box = "";
+  var hasRed = false, hasYel = false;
+  for (var i = 0; i < tips.length; i++) {
+    if (tips[i][0] === "red") { hasRed = true; }
+    if (tips[i][0] === "yel") { hasYel = true; }
+    box += '<div class="tip tip-' + tips[i][0] + '">' + tips[i][1] + "</div>";
+  }
+  if (tips.length === 0) {
+    box = '<div class="tip tip-ok">✅ Отлично! По вашим ответам критичных нарушений и заметных рисков не найдено. Перед публикацией проверьте текст политики и правила магазина.</div>';
+  } else if (hasRed) {
+    box = '<div class="tip tip-red">⚠️ Есть критичные замечания — исправьте их до публикации.</div>' + box;
+  } else if (hasYel) {
+    box = '<div class="tip tip-yel">👍 В целом хорошо, но есть зоны риска — посмотрите подсказки ниже.</div>' + box;
+  }
+  document.getElementById("tips").innerHTML = box;
+}
+function copyPolicy() {
+  var t = document.getElementById("policyText").textContent;
+  var done = false;
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(t);
+      done = true;
+    }
+  } catch (e) { done = false; }
+  if (!done) {
+    var ta = document.getElementById("policyText");
+    var range = document.createRange();
+    range.selectNodeContents(ta);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    try { document.execCommand("copy"); } catch (e2) {}
+    sel.removeAllRanges();
+  }
+}
+function resetAll() {
+  var ids = ["q2","q3","q4","q5","q6","q7","q8","q9","q10","q11","q12","q13","q14","q15","q16","q17","q18","q19","q20"];
+  for (var i = 0; i < ids.length; i++) {
+    var r = document.getElementsByName(ids[i]);
+    for (var j = 0; j < r.length; j++) { r[j].checked = false; }
+  }
+  document.getElementById("appName").value = "";
+  document.getElementById("result").style.display = "none";
+  try {
+    if (typeof(Storage) !== "undefined") {
+      localStorage.removeItem("polName");
+      localStorage.removeItem("polUsers");
+      for (var k = 0; k < ids.length; k++) { localStorage.removeItem("pol_" + ids[k]); }
+    }
+  } catch (e) {}
+  window.scrollTo(0, 0);
+}
+(function restore() {
+  try {
+    if (typeof(Storage) === "undefined") { return; }
+    var n = localStorage.getItem("polName");
+    if (n) { document.getElementById("appName").value = n; }
+    var u = localStorage.getItem("polUsers");
+    if (u) { document.getElementById("userType").value = u; }
+    var ids = ["q2","q3","q4","q5","q6","q7","q8","q9","q10","q11","q12","q13","q14","q15","q16","q17","q18","q19","q20"];
+    for (var i = 0; i < ids.length; i++) {
+      var v = localStorage.getItem("pol_" + ids[i]);
+      if (v === "1") {
+        var r = document.getElementsByName(ids[i]);
+        for (var j = 0; j < r.length; j++) { if (r[j].value === "yes") { r[j].checked = true; } }
+      } else if (v === "0") {
+        var r2 = document.getElementsByName(ids[i]);
+        for (var j2 = 0; j2 < r2.length; j2++) { if (r2[j2].value === "no") { r2[j2].checked = true; } }
+      }
+    }
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>
